@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ondeya — Find it. Feel it. Today.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --noir: #1a1714;
+    --espresso: #3d3630;
+    --taupe: #8a7f72;
+    --sand: #c9a882;
+    --linen: #e8ddd0;
+    --creme: #f5f0ea;
+    --forest: #2e4a3e;
+    --forest-light: #4a8a6e;
+    --terracotta: #4a2e2e;
+    --terracotta-light: #9a5f5f;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--noir);
+    color: var(--creme);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: rgba(26,23,20,0.82);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid rgba(232,221,208,0.08);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 9px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    font-size: 18px; letter-spacing: -0.02em; color: var(--creme);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--taupe); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--creme); }
+  .nav-cta {
+    background: var(--sand); color: var(--noir);
+    border: none; border-radius: 99px;
+    padding: 8px 20px; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.06em; cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 0;
+    padding: 7rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(46,74,62,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-left { padding-right: 4rem; }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--forest-light); margin-bottom: 1.75rem;
+    opacity: 0; animation: fadeUp 0.7s 0.2s forwards;
+  }
+  .eyebrow-dot {
+    width: 5px; height: 5px; border-radius: 50%; background: var(--forest-light);
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 5.5vw, 80px);
+    font-weight: 600; line-height: 1.03;
+    letter-spacing: -0.02em;
+    color: var(--creme);
+    margin-bottom: 1rem;
+    opacity: 0; animation: fadeUp 0.8s 0.35s forwards;
+  }
+
+  .hero-sub {
+    font-size: 17px; color: var(--taupe);
+    line-height: 1.6; margin-bottom: 2.5rem;
+    font-weight: 300;
+    opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .waitlist-form {
+    display: flex; gap: 10px; align-items: center;
+    opacity: 0; animation: fadeUp 0.8s 0.65s forwards;
+  }
+  .waitlist-input {
+    flex: 1; background: rgba(245,240,234,0.06);
+    border: 0.5px solid rgba(232,221,208,0.2);
+    border-radius: 99px; padding: 13px 22px;
+    font-size: 14px; color: var(--creme);
+    font-family: 'DM Sans', sans-serif;
+    outline: none; transition: border-color 0.2s;
+  }
+  .waitlist-input::placeholder { color: var(--taupe); }
+  .waitlist-input:focus { border-color: rgba(201,168,130,0.5); }
+  .waitlist-btn {
+    background: var(--sand); color: var(--noir);
+    border: none; border-radius: 99px;
+    padding: 13px 28px; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.04em; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .waitlist-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  .hero-social-proof {
+    margin-top: 1.5rem; font-size: 12px; color: var(--taupe);
+    letter-spacing: 0.04em;
+    opacity: 0; animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .hero-social-proof span { color: var(--sand); }
+
+  /* ── PHONE MOCKUP ── */
+  .hero-right {
+    display: flex; justify-content: center; align-items: center;
+    position: relative;
+    opacity: 0; animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .phone-frame {
+    width: 260px;
+    background: #0e0c0b;
+    border-radius: 38px;
+    border: 1.5px solid rgba(232,221,208,0.12);
+    padding: 14px;
+    position: relative;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,0,0,0.3);
+  }
+  .phone-notch {
+    width: 80px; height: 22px;
+    background: #0e0c0b;
+    border-radius: 0 0 14px 14px;
+    margin: 0 auto 10px;
+    position: relative; z-index: 2;
+  }
+  .phone-screen {
+    border-radius: 26px;
+    overflow: hidden;
+    background: var(--espresso);
+    position: relative;
+    aspect-ratio: 9/16;
+  }
+
+  /* ── SWIPE DEMO ── */
+  #swipeDemo {
+    width: 100%; height: 100%;
+    position: relative; overflow: hidden;
+  }
+
+  .demo-card {
+    position: absolute; inset: 0;
+    border-radius: 26px; overflow: hidden;
+    cursor: grab;
+    transition: none;
+    touch-action: none;
+    user-select: none;
+  }
+  .demo-card.animating {
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 0.45s ease;
+  }
+
+  .card-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+  }
+  .card-scrim {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,23,20,0.85) 0%, transparent 55%);
+  }
+  .card-pills {
+    position: absolute; top: 14px; left: 14px; right: 14px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cat-pill {
+    background: rgba(0,0,0,0.4); color: rgba(255,255,255,0.75);
+    border-radius: 99px; padding: 4px 10px;
+    font-size: 9px; font-weight: 500; letter-spacing: 0.06em;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .disc-pill {
+    background: rgba(255,255,255,0.12); border: 0.5px solid rgba(255,255,255,0.2);
+    color: #fff; border-radius: 99px; padding: 4px 10px;
+    font-size: 9px; font-weight: 500;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .card-info {
+    position: absolute; bottom: 16px; left: 14px; right: 14px;
+  }
+  .card-brand-label {
+    font-size: 8px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); font-weight: 500; margin-bottom: 3px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .card-title {
+    font-size: 12px; font-weight: 500; color: #fff;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-family: 'DM Sans', sans-serif; margin-bottom: 4px;
+  }
+  .card-pricing {
+    display: flex; align-items: baseline; gap: 5px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .price-now { font-size: 13px; font-weight: 500; color: #fff; }
+  .price-old { font-size: 10px; color: rgba(255,255,255,0.35); text-decoration: line-through; }
+  .platform-label {
+    font-size: 8px; letter-spacing: 0.08em; color: rgba(255,255,255,0.3);
+    text-transform: uppercase; font-weight: 500; margin-top: 4px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* Swipe feedback overlay */
+  .swipe-feedback {
+    position: absolute; inset: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none; opacity: 0;
+    transition: opacity 0.15s;
+  }
+  .swipe-feedback-pill {
+    border-radius: 99px; padding: 8px 18px;
+    font-size: 11px; font-weight: 500; color: #fff;
+    font-family: 'DM Sans', sans-serif; letter-spacing: 0.04em;
+    border: 1.5px solid rgba(255,255,255,0.45);
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(4px);
+    transform: scale(0.9);
+    transition: transform 0.15s;
+  }
+  .swipe-feedback.visible { opacity: 1; }
+  .swipe-feedback.visible .swipe-feedback-pill { transform: scale(1); }
+
+  .feedback-like .swipe-feedback-pill { border-color: var(--forest-light); background: rgba(46,74,62,0.4); }
+  .feedback-skip .swipe-feedback-pill { border-color: var(--terracotta-light); background: rgba(74,46,46,0.4); }
+  .feedback-buy .swipe-feedback-pill { border-color: var(--sand); background: rgba(201,168,130,0.3); }
+  .feedback-nope .swipe-feedback-pill { border-color: rgba(255,255,255,0.2); background: rgba(0,0,0,0.4); }
+
+  /* Swipe tint overlays */
+  .tint-overlay {
+    position: absolute; inset: 0; border-radius: 26px;
+    pointer-events: none; opacity: 0; transition: opacity 0.1s;
+  }
+  .tint-like { background: rgba(46,74,62,0.35); }
+  .tint-skip { background: rgba(74,46,46,0.35); }
+  .tint-buy { background: rgba(201,168,130,0.2); }
+  .tint-nope { background: rgba(0,0,0,0.4); }
+
+  /* Demo controls */
+  .demo-controls {
+    display: flex; justify-content: center; gap: 10px;
+    margin-top: 16px;
+  }
+  .demo-btn {
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 0.5px solid rgba(232,221,208,0.15);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 15px;
+    transition: transform 0.15s, border-color 0.2s, background 0.2s;
+    background: rgba(255,255,255,0.04);
+  }
+  .demo-btn:hover { transform: scale(1.08); }
+  .demo-btn.like-btn:hover { border-color: var(--forest-light); background: rgba(46,74,62,0.3); }
+  .demo-btn.skip-btn:hover { border-color: var(--terracotta-light); background: rgba(74,46,46,0.3); }
+  .demo-btn.buy-btn:hover { border-color: var(--sand); background: rgba(201,168,130,0.2); }
+  .demo-btn.nope-btn:hover { border-color: rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); }
+
+  .demo-hint {
+    text-align: center; font-size: 11px; color: var(--taupe);
+    letter-spacing: 0.06em; margin-top: 10px;
+  }
+
+  /* ── MECHANICS SECTION ── */
+  .mechanics {
+    padding: 6rem 3rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-eyebrow {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--forest-light); margin-bottom: 1rem;
+  }
+  .section-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 56px); font-weight: 600;
+    line-height: 1.08; letter-spacing: -0.02em; color: var(--creme);
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 15px; color: var(--taupe); max-width: 480px;
+    line-height: 1.65; margin-bottom: 3rem;
+  }
+  .mechanics-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5px;
+    border-radius: 16px; overflow: hidden;
+    border: 0.5px solid rgba(232,221,208,0.1);
+  }
+  .mech-card {
+    padding: 2rem; background: rgba(245,240,234,0.03);
+    transition: background 0.2s;
+  }
+  .mech-card:hover { background: rgba(245,240,234,0.06); }
+  .mech-direction {
+    font-size: 28px; font-weight: 300; margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .mech-arrow { font-size: 22px; }
+  .mech-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    border-radius: 99px; padding: 5px 12px;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.08em;
+    margin-bottom: 0.75rem; font-family: 'DM Sans', sans-serif;
+  }
+  .badge-like { background: rgba(46,74,62,0.35); color: #6dbf96; border: 0.5px solid rgba(74,138,110,0.4); }
+  .badge-skip { background: rgba(74,46,46,0.35); color: #d4a0a0; border: 0.5px solid rgba(154,95,95,0.4); }
+  .badge-buy { background: rgba(201,168,130,0.2); color: var(--sand); border: 0.5px solid rgba(201,168,130,0.35); }
+  .badge-nope { background: rgba(255,255,255,0.05); color: var(--taupe); border: 0.5px solid rgba(232,221,208,0.15); }
+  .mech-title {
+    font-size: 16px; font-weight: 500; color: var(--creme);
+    margin-bottom: 0.5rem; letter-spacing: -0.01em;
+  }
+  .mech-desc { font-size: 13px; color: var(--taupe); line-height: 1.65; }
+
+  /* ── CATEGORIES ── */
+  .categories {
+    padding: 4rem 3rem 6rem;
+    max-width: 1100px; margin: 0 auto;
+    border-top: 0.5px solid rgba(232,221,208,0.08);
+  }
+  .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; }
+  .cat-card {
+    padding: 2.5rem 2rem; text-align: center;
+    background: rgba(245,240,234,0.02);
+    transition: background 0.2s;
+  }
+  .cat-card:hover { background: rgba(245,240,234,0.05); }
+  .cat-icon { font-size: 32px; margin-bottom: 1rem; }
+  .cat-name {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--creme); margin-bottom: 0.5rem;
+  }
+  .cat-desc { font-size: 12px; color: var(--taupe); line-height: 1.6; }
+
+  /* ── WAITLIST BOTTOM ── */
+  .waitlist-bottom {
+    padding: 6rem 3rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .waitlist-bottom::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(46,74,62,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .wl-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 70px); font-weight: 600;
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--creme); margin-bottom: 1rem;
+    position: relative;
+  }
+  .wl-sub {
+    font-size: 15px; color: var(--taupe); margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .wl-form {
+    display: flex; gap: 10px; justify-content: center;
+    max-width: 420px; margin: 0 auto;
+    position: relative;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 0.5px solid rgba(232,221,208,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 500; color: var(--taupe);
+    letter-spacing: -0.01em;
+  }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(138,127,114,0.5); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--taupe); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 0.5px; background: rgba(232,221,208,0.08);
+    margin: 0 3rem;
+  }
+
+  /* ── BRAND CORE ── */
+  .brand-core {
+    padding: 6rem 3rem;
+    border-top: 0.5px solid rgba(232,221,208,0.08);
+  }
+  .brand-core-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start;
+  }
+  .brand-core-left { position: sticky; top: 8rem; }
+  .brand-value {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1.25rem 0;
+    border-bottom: 0.5px solid rgba(232,221,208,0.07);
+  }
+  .brand-value:first-child { padding-top: 0; }
+  .brand-value:last-child { border-bottom: none; }
+  .brand-value-icon {
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .brand-value-title {
+    font-size: 14px; font-weight: 500; color: var(--creme);
+    margin-bottom: 5px; letter-spacing: -0.01em;
+  }
+  .brand-value-desc {
+    font-size: 13px; color: var(--taupe); line-height: 1.7;
+  }
+
+  /* ── FOCUS MODE ── */
+  .focus-section {
+    padding: 6rem 3rem;
+  }
+  .focus-inner { max-width: 1100px; margin: 0 auto; }
+  .focus-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px;
+    border-radius: 16px; overflow: hidden;
+    border: 0.5px solid rgba(232,221,208,0.1);
+    margin-bottom: 1.5rem;
+  }
+  .focus-card {
+    padding: 2rem;
+    background: rgba(245,240,234,0.03);
+  }
+  .focus-card-top { margin-bottom: 1.25rem; }
+  .focus-tag {
+    display: inline-block;
+    font-size: 10px; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--sand);
+    border: 0.5px solid rgba(201,168,130,0.3);
+    border-radius: 99px; padding: 4px 12px;
+    margin-bottom: 0.75rem;
+  }
+  .focus-tag-open {
+    color: var(--forest-light);
+    border-color: rgba(74,138,110,0.3);
+  }
+  .focus-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--creme); letter-spacing: -0.01em; line-height: 1.2;
+  }
+  .focus-examples {
+    display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.25rem;
+  }
+  .focus-example-chip {
+    background: rgba(201,168,130,0.1); border: 0.5px solid rgba(201,168,130,0.25);
+    border-radius: 99px; padding: 5px 12px;
+    font-size: 11px; color: var(--sand); font-weight: 400;
+  }
+  .focus-platforms {
+    display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.25rem;
+  }
+  .platform-chip {
+    background: rgba(74,138,110,0.1); border: 0.5px solid rgba(74,138,110,0.25);
+    border-radius: 99px; padding: 5px 12px;
+    font-size: 11px; color: var(--forest-light); font-weight: 400;
+  }
+  .focus-card-desc {
+    font-size: 13px; color: var(--taupe); line-height: 1.7;
+  }
+  .focus-guarantee {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: var(--taupe); letter-spacing: 0.02em;
+    padding: 1rem 1.25rem;
+    background: rgba(46,74,62,0.1); border: 0.5px solid rgba(74,138,110,0.2);
+    border-radius: 10px;
+  }
+
+  @media (max-width: 768px) {
+    .brand-core-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .brand-core-left { position: static; }
+    .focus-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Skimlinks verification */
+  .skimlinks-notice {
+    position: fixed; bottom: 1rem; right: 1rem;
+    background: rgba(26,23,20,0.9); border: 0.5px solid rgba(232,221,208,0.1);
+    border-radius: 8px; padding: 8px 14px;
+    font-size: 10px; color: var(--taupe); letter-spacing: 0.06em;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 3rem; }
+    .hero-left { padding-right: 0; }
+    .mechanics, .categories { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .mechanics-grid, .cat-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#e8ddd0" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#4a8a6e" stroke-width="1.6" stroke-linecap="round" fill="none" stroke-dasharray="5 5"/>
+    </svg>
+    ONDEYA
+  </a>
+  <ul class="nav-links">
+    <li><a href="#how">Wie es funktioniert</a></li>
+    <li><a href="#brand">Warum Ondeya</a></li>
+    <li><a href="#focus">Fokus-Modus</a></li>
+    <li><a href="#categories">Kategorien</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('waitlist-input-bottom').focus(); document.querySelector('.waitlist-bottom').scrollIntoView({behavior:'smooth'})">Früh dabei sein</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      Dein smarter Lifestyle-Companion
+    </div>
+
+    <h1 class="hero-headline">
+      Der beste Deal<br>wartet auf dich.
+    </h1>
+
+    <p class="hero-sub">
+      Zeit und Nerven sparst du dir auch.
+    </p>
+
+    <div class="waitlist-form">
+      <input class="waitlist-input" type="email" placeholder="deine@email.de" id="waitlist-input-hero">
+      <button class="waitlist-btn" onclick="handleSignup('waitlist-input-hero', this)">Früh dabei sein →</button>
+    </div>
+
+    <p class="hero-social-proof">
+      <span id="signupCount">247</span> Personen auf der Warteliste
+    </p>
+  </div>
+
+  <div class="hero-right">
+    <div>
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div id="swipeDemo">
+            <!-- Cards rendered by JS -->
+          </div>
+        </div>
+      </div>
+      <div class="demo-controls">
+        <div class="demo-btn nope-btn" title="Nicht mein Stil" onclick="triggerSwipe('nope')">↓</div>
+        <div class="demo-btn skip-btn" title="Skip" onclick="triggerSwipe('skip')">←</div>
+        <div class="demo-btn buy-btn" title="Sofort kaufen" onclick="triggerSwipe('buy')">↑</div>
+        <div class="demo-btn like-btn" title="Watchlist" onclick="triggerSwipe('like')">→</div>
+      </div>
+      <p class="demo-hint">Pfeile klicken oder Karte swipen</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- HOW IT WORKS / MECHANICS -->
+<section class="mechanics" id="how">
+  <div class="section-eyebrow">Wie es funktioniert</div>
+  <h2 class="section-headline">Vier Gesten.<br>Alles drin.</h2>
+  <p class="section-sub">Ondeya lernt deinen Stil mit jeder Entscheidung. Kein Scrollen, keine Suche — einfach ja oder nein.</p>
+
+  <div class="mechanics-grid">
+    <div class="mech-card">
+      <div class="mech-direction">
+        <span class="mech-arrow" style="color: var(--forest-light)">→</span>
+      </div>
+      <div class="mech-badge badge-like">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--forest-light);display:inline-block"></span>
+        Like
+      </div>
+      <div class="mech-title">Auf die Watchlist</div>
+      <div class="mech-desc">Der Deal landet in deiner Merkliste. Du bekommst einen Preis-Alert, sobald er nochmal fällt.</div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-direction">
+        <span class="mech-arrow" style="color: var(--terracotta-light)">←</span>
+      </div>
+      <div class="mech-badge badge-skip">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--terracotta-light);display:inline-block"></span>
+        Skip
+      </div>
+      <div class="mech-title">Überspringen</div>
+      <div class="mech-desc">Passt gerade nicht. Kein Drama — Ondeya merkt es sich und zeigt dir beim nächsten Mal etwas Passenderes.</div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-direction">
+        <span class="mech-arrow" style="color: var(--sand)">↑</span>
+      </div>
+      <div class="mech-badge badge-buy">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--sand);display:inline-block"></span>
+        Kauf
+      </div>
+      <div class="mech-title">Direkt zum Shop</div>
+      <div class="mech-desc">Du gehst sofort zur Produktseite des Shops. Ein Tap, kein Umweg. Das stärkste Signal, das du Ondeya geben kannst.</div>
+    </div>
+    <div class="mech-card">
+      <div class="mech-direction">
+        <span class="mech-arrow" style="color: var(--taupe)">↓</span>
+      </div>
+      <div class="mech-badge badge-nope">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--taupe);display:inline-block"></span>
+        Nicht mein Stil
+      </div>
+      <div class="mech-title">Hartes Nein</div>
+      <div class="mech-desc">Explizites Feedback. Dieser Stil, diese Marke, dieser Look — nicht nochmal. Ondeya versteht und passt sich an.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- BRAND CORE SECTION -->
+<section class="brand-core" id="brand">
+  <div class="brand-core-inner">
+    <div class="brand-core-left">
+      <div class="section-eyebrow">Warum Ondeya</div>
+      <h2 class="section-headline" style="margin-bottom:0">Das Leben ist<br>zu kurz zum Suchen.</h2>
+    </div>
+    <div class="brand-core-right">
+      <div class="brand-value">
+        <div class="brand-value-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#4a8a6e" stroke-width="1.2" fill="none"/>
+            <path d="M7 10 L9 12 L13 8" stroke="#4a8a6e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-value-title">Alles auf einen Blick</div>
+          <div class="brand-value-desc">Zalando, ASOS, Connox, Westwing, About You — alle Plattformen gleichzeitig, in einem einzigen Feed. Kein Tab-Hopping mehr.</div>
+        </div>
+      </div>
+      <div class="brand-value">
+        <div class="brand-value-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#4a8a6e" stroke-width="1.2" fill="none"/>
+            <path d="M7 10 L9 12 L13 8" stroke="#4a8a6e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-value-title">Kein stundenlanger Vergleich</div>
+          <div class="brand-value-desc">Den gleichen Pullover auf fünf Seiten prüfen, Preise notieren, Tabs offen lassen — das war gestern. Ondeya zeigt dir den besten Deal direkt.</div>
+        </div>
+      </div>
+      <div class="brand-value">
+        <div class="brand-value-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#4a8a6e" stroke-width="1.2" fill="none"/>
+            <path d="M7 10 L9 12 L13 8" stroke="#4a8a6e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-value-title">Du sparst Zeit, nicht nur Geld</div>
+          <div class="brand-value-desc">10 Minuten in der U-Bahn reichen. Ondeya ist kein Schnäppchen-Portal — es ist ein smarter Companion für Menschen, die ihren Stil kennen und keine Zeit verschwenden wollen.</div>
+        </div>
+      </div>
+      <div class="brand-value">
+        <div class="brand-value-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <circle cx="10" cy="10" r="7" stroke="#4a8a6e" stroke-width="1.2" fill="none"/>
+            <path d="M7 10 L9 12 L13 8" stroke="#4a8a6e" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-value-title">Für jeden Geschmack</div>
+          <div class="brand-value-desc">Ralph Lauren oder H&M, Designersofa oder Ikea-Alternative — Ondeya urteilt nicht. Es findet, was zu dir passt, nicht was gerade beworben wird.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FOCUS MODE SECTION -->
+<section class="focus-section" id="focus">
+  <div class="focus-inner">
+    <div class="section-eyebrow">Fokus-Modus</div>
+    <h2 class="section-headline">Heute nur Jeans?<br>Oder einfach alles?</h2>
+    <p class="section-sub">Du entscheidest beim Öffnen der App, wie du heute unterwegs bist — spezifisch oder offen. Ondeya passt sich an, nicht andersherum.</p>
+
+    <div class="focus-grid">
+      <div class="focus-card focus-specific">
+        <div class="focus-card-top">
+          <div class="focus-tag">Gezielt suchen</div>
+          <div class="focus-card-title">Ich weiß, was ich will.</div>
+        </div>
+        <div class="focus-examples">
+          <div class="focus-example-chip">Slim Jeans · blau</div>
+          <div class="focus-example-chip">Ledersofa · unter 800 €</div>
+          <div class="focus-example-chip">Weißes Leinenhemd</div>
+          <div class="focus-example-chip">Outdoor-Jacke · Größe M</div>
+        </div>
+        <div class="focus-card-desc">Tippe, was du suchst — Ondeya zeigt dir nur relevante Angebote aus allen Plattformen gleichzeitig. Kein Rauschen, kein Drumherum.</div>
+      </div>
+      <div class="focus-card focus-generic">
+        <div class="focus-card-top">
+          <div class="focus-tag focus-tag-open">Offen entdecken</div>
+          <div class="focus-card-title">Lass mich überraschen.</div>
+        </div>
+        <div class="focus-platforms">
+          <div class="platform-chip">Zalando</div>
+          <div class="platform-chip">ASOS</div>
+          <div class="platform-chip">Connox</div>
+          <div class="platform-chip">About You</div>
+          <div class="platform-chip">Westwing</div>
+          <div class="platform-chip">H&M</div>
+        </div>
+        <div class="focus-card-desc">Alle Kategorien, alle Plattformen — gefiltert nach deinem persönlichen Geschmack. Du entdeckst Dinge, nach denen du nie gesucht hättest, aber sofort willst.</div>
+      </div>
+    </div>
+
+    <div class="focus-guarantee">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M8 2 L14 5 L14 9 C14 12 11 14.5 8 15 C5 14.5 2 12 2 9 L2 5 Z" stroke="#4a8a6e" stroke-width="1.1" fill="none" stroke-linejoin="round"/>
+        <path d="M5.5 8 L7 9.5 L10.5 6" stroke="#4a8a6e" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      In beiden Modi gilt: Alle Angebote sind plattformübergreifend verifiziert und in Echtzeit aktuell.
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="section-eyebrow">Kategorien</div>
+  <h2 class="section-headline">Mode, Living,<br>Lifestyle.</h2>
+  <div class="cat-grid" style="margin-top:2.5rem">
+    <div class="cat-card">
+      <div class="cat-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 6 C10 6 8 8 8 12 L8 26 L24 26 L24 12 C24 8 22 6 22 6" stroke="#c9a882" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          <path d="M10 6 L13 4 L16 6 L19 4 L22 6" stroke="#c9a882" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M12 14 L20 14" stroke="#8a7f72" stroke-width="1" stroke-linecap="round"/>
+          <path d="M12 18 L18 18" stroke="#8a7f72" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="cat-name">Mode</div>
+      <div class="cat-desc">Kleidung, Schuhe, Accessoires von Zalando, ASOS, About You und mehr.</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="17" width="22" height="9" rx="1.5" stroke="#c9a882" stroke-width="1.2" fill="none"/>
+          <path d="M5 20 L27 20" stroke="#8a7f72" stroke-width="1" stroke-linecap="round"/>
+          <rect x="9" y="10" width="14" height="7" rx="1.5" stroke="#c9a882" stroke-width="1.2" fill="none"/>
+          <path d="M3 26 L3 28 M29 26 L29 28" stroke="#8a7f72" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="cat-name">Living</div>
+      <div class="cat-desc">Möbel, Wohnaccessoires, Interior von Connox, Westwing und weiteren.</div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon">✦</div>
+      <div class="cat-name">Lifestyle</div>
+      <div class="cat-desc">Alles dazwischen — Parfum, Sport, Technik, was deinen Alltag aufwertet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST BOTTOM -->
+<section class="waitlist-bottom">
+  <h2 class="wl-headline">Früh dabei.<br>Besser versorgt.</h2>
+  <p class="wl-sub">Ondeya startet bald. Trag dich ein — du bekommst als Erster Zugang.</p>
+  <div class="wl-form">
+    <input class="waitlist-input" type="email" placeholder="deine@email.de" id="waitlist-input-bottom" style="flex:1">
+    <button class="waitlist-btn" onclick="handleSignup('waitlist-input-bottom', this)">Eintragen →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#8a7f72" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#4a8a6e" stroke-width="1.4" stroke-linecap="round" fill="none" stroke-dasharray="5 5"/>
+    </svg>
+    ONDEYA
+  </div>
+  <div class="footer-links">
+    <a href="#">Datenschutz</a>
+    <a href="#">Impressum</a>
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+  </div>
+</footer>
+
+<!-- Skimlinks verification placeholder -->
+<div class="skimlinks-notice">ondeya.app · affiliate verified</div>
+
+<script>
+// ── PRODUCT DATA ──
+const products = [
+  {
+    category: 'Mode',
+    brand: 'Ralph Lauren',
+    title: 'Oxford Button-Down Shirt',
+    price: '39,99 €',
+    oldPrice: '74,99 €',
+    discount: '−47%',
+    platform: 'Zalando',
+    bg: 'linear-gradient(160deg, #c9bbaa 0%, #a89080 30%, #7a6858 100%)'
+  },
+  {
+    category: 'Living',
+    brand: 'Connox',
+    title: 'Eiche Esstisch Solid',
+    price: '549 €',
+    oldPrice: '799 €',
+    discount: '−32%',
+    platform: 'Connox',
+    bg: 'linear-gradient(160deg, #2a3530 0%, #1a2820 50%, #0e1a14 100%)'
+  },
+  {
+    category: 'Lifestyle',
+    brand: 'About You',
+    title: 'Premium Canvas Backpack',
+    price: '59 €',
+    oldPrice: '89 €',
+    discount: '−34%',
+    platform: 'About You',
+    bg: 'linear-gradient(160deg, #2e2a3a 0%, #1e1a28 50%, #141018 100%)'
+  },
+  {
+    category: 'Mode',
+    brand: 'ASOS',
+    title: 'Merino Crewneck Pullover',
+    price: '44,99 €',
+    oldPrice: '69,99 €',
+    discount: '−36%',
+    platform: 'ASOS',
+    bg: 'linear-gradient(160deg, #3a2e28 0%, #281e18 50%, #1a1410 100%)'
+  },
+  {
+    category: 'Living',
+    brand: 'Westwing',
+    title: 'Linen Cushion Set 50×50',
+    price: '49 €',
+    oldPrice: '79 €',
+    discount: '−38%',
+    platform: 'Westwing',
+    bg: 'linear-gradient(160deg, #e0d4c4 0%, #c8b89a 40%, #a89070 100%)'
+  }
+];
+
+// ── SWIPE DEMO STATE ──
+let currentIdx = 0;
+let isDragging = false;
+let startX = 0, startY = 0;
+let currentX = 0, currentY = 0;
+let activeCard = null;
+let isAnimating = false;
+
+const demo = document.getElementById('swipeDemo');
+
+function buildCard(product, zIndex) {
+  const card = document.createElement('div');
+  card.className = 'demo-card';
+  card.style.zIndex = zIndex;
+  card.innerHTML = `
+    <div class="card-img" style="background: ${product.bg}"></div>
+    <div class="card-scrim"></div>
+    <div class="tint-overlay tint-like" id="tint-like-${zIndex}"></div>
+    <div class="tint-overlay tint-skip" id="tint-skip-${zIndex}"></div>
+    <div class="tint-overlay tint-buy" id="tint-buy-${zIndex}"></div>
+    <div class="tint-overlay tint-nope" id="tint-nope-${zIndex}"></div>
+    <div class="card-pills">
+      <div class="cat-pill">${product.category}</div>
+      <div class="disc-pill">${product.discount}</div>
+    </div>
+    <div class="swipe-feedback feedback-like" id="fb-like-${zIndex}">
+      <div class="swipe-feedback-pill">+ Watchlist →</div>
+    </div>
+    <div class="swipe-feedback feedback-skip" id="fb-skip-${zIndex}">
+      <div class="swipe-feedback-pill">← Skip</div>
+    </div>
+    <div class="swipe-feedback feedback-buy" id="fb-buy-${zIndex}">
+      <div class="swipe-feedback-pill">Sofort kaufen ↑</div>
+    </div>
+    <div class="swipe-feedback feedback-nope" id="fb-nope-${zIndex}">
+      <div class="swipe-feedback-pill">Nicht mein Stil ↓</div>
+    </div>
+    <div class="card-info">
+      <div class="card-brand-label">${product.brand}</div>
+      <div class="card-title">${product.title}</div>
+      <div class="card-pricing">
+        <span class="price-now">${product.price}</span>
+        <span class="price-old">${product.oldPrice}</span>
+      </div>
+      <div class="platform-label">${product.platform}</div>
+    </div>
+  `;
+  return card;
+}
+
+function renderCards() {
+  demo.innerHTML = '';
+  for (let i = Math.min(currentIdx + 2, products.length - 1); i >= currentIdx; i--) {
+    const p = products[i % products.length];
+    const zIndex = 10 - (i - currentIdx);
+    const card = buildCard(p, zIndex);
+    const offset = (i - currentIdx) * 4;
+    card.style.transform = `scale(${1 - (i - currentIdx) * 0.04}) translateY(${offset}px)`;
+    if (i === currentIdx) {
+      activeCard = card;
+      attachDragEvents(card);
+    }
+    demo.appendChild(card);
+  }
+}
+
+function getSwipeDirection(dx, dy, forceDir) {
+  if (forceDir) return forceDir;
+  const absDx = Math.abs(dx), absDy = Math.abs(dy);
+  if (absDx < 20 && absDy < 20) return null;
+  if (absDx > absDy) return dx > 0 ? 'like' : 'skip';
+  return dy > 0 ? 'nope' : 'buy';
+}
+
+function showFeedback(card, dir) {
+  const zIndex = card.style.zIndex;
+  ['like','skip','buy','nope'].forEach(d => {
+    const el = card.querySelector(`.feedback-${d}`);
+    const tint = card.querySelector(`.tint-${d}`);
+    if (el) el.classList.remove('visible');
+    if (tint) tint.style.opacity = '0';
+  });
+  if (dir) {
+    const fb = card.querySelector(`.feedback-${dir}`);
+    const tint = card.querySelector(`.tint-${dir}`);
+    if (fb) fb.classList.add('visible');
+    if (tint) tint.style.opacity = '1';
+  }
+}
+
+function animateOut(card, dir) {
+  if (isAnimating) return;
+  isAnimating = true;
+  card.classList.add('animating');
+
+  let tx = 0, ty = 0, rot = 0;
+  if (dir === 'like') { tx = 600; rot = 20; }
+  else if (dir === 'skip') { tx = -600; rot = -20; }
+  else if (dir === 'buy') { ty = -800; }
+  else if (dir === 'nope') { ty = 800; }
+
+  card.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg)`;
+  card.style.opacity = '0';
+
+  setTimeout(() => {
+    currentIdx = (currentIdx + 1) % products.length;
+    isAnimating = false;
+    renderCards();
+  }, 450);
+}
+
+function triggerSwipe(dir) {
+  if (isAnimating || !activeCard) return;
+  showFeedback(activeCard, dir);
+  setTimeout(() => animateOut(activeCard, dir), 150);
+}
+
+// Drag
+function attachDragEvents(card) {
+  card.addEventListener('mousedown', onStart);
+  card.addEventListener('touchstart', onStart, { passive: true });
+}
+
+function onStart(e) {
+  if (isAnimating) return;
+  isDragging = true;
+  const point = e.touches ? e.touches[0] : e;
+  startX = point.clientX; startY = point.clientY;
+  currentX = 0; currentY = 0;
+
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onEnd);
+  document.addEventListener('touchmove', onMove, { passive: true });
+  document.addEventListener('touchend', onEnd);
+}
+
+function onMove(e) {
+  if (!isDragging || !activeCard) return;
+  const point = e.touches ? e.touches[0] : e;
+  currentX = point.clientX - startX;
+  currentY = point.clientY - startY;
+  const rot = currentX * 0.12;
+  activeCard.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${rot}deg)`;
+
+  const dir = getSwipeDirection(currentX, currentY);
+  showFeedback(activeCard, dir);
+}
+
+function onEnd() {
+  if (!isDragging) return;
+  isDragging = false;
+  document.removeEventListener('mousemove', onMove);
+  document.removeEventListener('mouseup', onEnd);
+  document.removeEventListener('touchmove', onMove);
+  document.removeEventListener('touchend', onEnd);
+
+  const dir = getSwipeDirection(currentX, currentY);
+  const threshold = 80;
+  const snap = Math.abs(currentX) > threshold || Math.abs(currentY) > threshold;
+
+  if (snap && dir) {
+    animateOut(activeCard, dir);
+  } else {
+    // Snap back
+    if (activeCard) {
+      activeCard.classList.add('animating');
+      activeCard.style.transform = 'scale(1) translateY(0)';
+      showFeedback(activeCard, null);
+      setTimeout(() => {
+        if (activeCard) activeCard.classList.remove('animating');
+      }, 450);
+    }
+  }
+}
+
+// ── WAITLIST SIGNUP ──
+let signupCount = 247;
+function handleSignup(inputId, btn) {
+  const input = document.getElementById(inputId);
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = 'rgba(154,95,95,0.6)';
+    setTimeout(() => input.style.borderColor = '', 1500);
+    return;
+  }
+  signupCount++;
+  document.getElementById('signupCount').textContent = signupCount;
+  input.value = '';
+  btn.textContent = 'Du bist dabei ✓';
+  btn.style.background = 'var(--forest-light)';
+  btn.style.color = '#fff';
+  setTimeout(() => {
+    btn.textContent = btn.textContent.includes('→') ? 'Früh dabei sein →' : 'Eintragen →';
+    btn.style.background = '';
+    btn.style.color = '';
+  }, 3000);
+}
+
+// Init
+renderCards();
+</script>
+</body>
+</html>
