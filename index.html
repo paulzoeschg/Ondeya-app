@@ -1146,12 +1146,32 @@ function onEnd() {
   }
 }
 
-// ── SUPABASE ──
-const SUPABASE_URL = 'https://ghgjltjemkhclvamhtnj.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_4rIdA2cVBudaTdeLOr8CQA_T1z7VVxl';
-const supabase = window.supabase
-  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-  : null;
+// ── SUPABASE REST API ──
+const SB_URL = 'https://ghgjltjemkhclvamhtnj.supabase.co';
+const SB_KEY = 'sb_publishable_4rIdA2cVBudaTdeLOr8CQA_T1z7VVxl';
+const SB_HEADERS = {
+  'apikey': SB_KEY,
+  'Authorization': 'Bearer ' + SB_KEY,
+  'Content-Type': 'application/json'
+};
+
+async function loadWaitlistCount() {
+  try {
+    const res = await fetch(SB_URL + '/rest/v1/waitlist?select=id', {
+      headers: { ...SB_HEADERS, 'Prefer': 'count=exact' }
+    });
+    const range = res.headers.get('content-range'); // e.g. "0-9/247"
+    if (range) {
+      const total = parseInt(range.split('/')[1], 10);
+      if (!isNaN(total)) {
+        signupCount = total;
+        document.getElementById('signupCount').textContent = total;
+      }
+    }
+  } catch (e) {
+    console.warn('Waitlist count nicht verfügbar:', e);
+  }
+}
 
 // ── WAITLIST SIGNUP ──
 let signupCount = 247;
@@ -1172,20 +1192,20 @@ async function handleSignup(inputId, btn) {
 
   let success = false;
 
-  if (supabase) {
-    const { error } = await supabase.from('waitlist').insert({
-      email,
-      is_founding_member: true
+  try {
+    const res = await fetch(SB_URL + '/rest/v1/waitlist', {
+      method: 'POST',
+      headers: { ...SB_HEADERS, 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ email, is_founding_member: true })
     });
-    if (!error || error.code === '23505') {
-      // 23505 = unique_violation (already signed up — treat as success)
-      success = true;
-    } else {
-      console.error('Supabase error:', error);
+    // 201 = created, 409 = conflict (duplicate email — bereits eingetragen)
+    success = res.status === 201 || res.status === 409;
+    if (!success) {
+      const body = await res.json().catch(() => ({}));
+      console.error('Supabase Fehler:', res.status, body);
     }
-  } else {
-    // Supabase not loaded — graceful fallback
-    success = true;
+  } catch (e) {
+    console.error('Netzwerkfehler:', e);
   }
 
   btn.disabled = false;
@@ -1210,6 +1230,7 @@ async function handleSignup(inputId, btn) {
 
 // Init
 renderCards();
+loadWaitlistCount();
 </script>
 </body>
 </html>

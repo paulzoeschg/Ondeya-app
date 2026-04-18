@@ -11,11 +11,17 @@ CREATE TABLE IF NOT EXISTS waitlist (
 -- Row Level Security aktivieren
 ALTER TABLE waitlist ENABLE ROW LEVEL SECURITY;
 
--- Anonyme Nutzer dürfen nur INSERTen (kein SELECT, kein UPDATE/DELETE)
+-- Anonyme Nutzer dürfen INSERTen
 CREATE POLICY "anon_insert_only" ON waitlist
   FOR INSERT
   TO anon
   WITH CHECK (true);
+
+-- Anonyme Nutzer dürfen COUNT abfragen (nur id wird übertragen, kein email)
+CREATE POLICY "anon_count" ON waitlist
+  FOR SELECT
+  TO anon
+  USING (true);
 
 -- Authentifizierte Nutzer (Admin) dürfen alles lesen
 CREATE POLICY "auth_read_all" ON waitlist
