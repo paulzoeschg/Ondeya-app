@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Datenschutz — Ondeya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --noir: #1a1714;
+    --espresso: #3d3630;
+    --taupe: #8a7f72;
+    --sand: #c9a882;
+    --linen: #e8ddd0;
+    --creme: #f5f0ea;
+    --forest-light: #4a8a6e;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--noir);
+    color: var(--creme);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 3rem;
+    border-bottom: 0.5px solid rgba(232,221,208,0.08);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 9px;
+    font-weight: 500; font-size: 18px; letter-spacing: -0.02em;
+    color: var(--creme); text-decoration: none;
+  }
+  .nav-back {
+    font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--taupe); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--creme); }
+
+  main {
+    max-width: 680px; margin: 0 auto;
+    padding: 5rem 3rem 6rem;
+  }
+  .page-label {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--forest-light); margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 52px); font-weight: 600;
+    line-height: 1.08; letter-spacing: -0.02em;
+    color: var(--creme); margin-bottom: 3rem;
+  }
+  h2 {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--taupe);
+    margin-top: 2.5rem; margin-bottom: 0.75rem;
+  }
+  p { font-size: 15px; color: var(--linen); line-height: 1.75; margin-bottom: 0.75rem; }
+  ul { padding-left: 1.4rem; margin-bottom: 0.75rem; }
+  li { font-size: 15px; color: var(--linen); line-height: 1.75; margin-bottom: 0.35rem; }
+  a { color: var(--sand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .divider { height: 0.5px; background: rgba(232,221,208,0.08); margin: 2.5rem 0; }
+
+  .highlight-box {
+    background: rgba(74,138,110,0.08);
+    border: 0.5px solid rgba(74,138,110,0.25);
+    border-radius: 10px; padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0;
+  }
+  .highlight-box p { margin-bottom: 0; }
+
+  footer {
+    padding: 2rem 3rem;
+    border-top: 0.5px solid rgba(232,221,208,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 500; color: var(--taupe);
+  }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a {
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(138,127,114,0.5); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--taupe); }
+
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    main { padding: 3rem 1.5rem 4rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <svg width="22" height="22" viewBox="0 0 40 40" fill="none">
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#e8ddd0" stroke-width="3" stroke-linecap="round" fill="none"/>
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#4a8a6e" stroke-width="1.6" stroke-linecap="round" fill="none" stroke-dasharray="5 5"/>
+    </svg>
+    ONDEYA
+  </a>
+  <a class="nav-back" href="index.html">← Zurück</a>
+</nav>
+
+<main>
+  <div class="page-label">Rechtliches</div>
+  <h1>Datenschutz&shy;erklärung</h1>
+
+  <p>
+    Der Schutz deiner persönlichen Daten ist uns wichtig. Diese Datenschutzerklärung informiert dich darüber, welche Daten wir auf <strong>ondeya.app</strong> erheben, wie wir sie verwenden und welche Rechte du hast.
+  </p>
+
+  <div class="divider"></div>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>
+    Paul Zöschg<br>
+    [Straße und Hausnummer]<br>
+    [PLZ und Ort]<br>
+    Deutschland<br>
+    E-Mail: <a href="mailto:hallo@ondeya.app">hallo@ondeya.app</a>
+  </p>
+
+  <div class="divider"></div>
+
+  <h2>2. Waitlist — Datenerhebung und -verarbeitung</h2>
+
+  <div class="highlight-box">
+    <p>Wenn du dich auf ondeya.app in die Warteliste einträgst, speichern wir deine E-Mail-Adresse, um dich über den Launch von Ondeya zu informieren.</p>
+  </div>
+
+  <p><strong>Welche Daten werden gespeichert?</strong></p>
+  <ul>
+    <li>E-Mail-Adresse</li>
+    <li>Zeitpunkt der Anmeldung (Timestamp)</li>
+    <li>Founding-Member-Status (ob du zu den ersten Nutzern gehörst)</li>
+  </ul>
+
+  <p><strong>Rechtsgrundlage:</strong> Art. 6 Abs. 1 lit. a DSGVO (Einwilligung). Durch das Absenden des Formulars willigst du in die Verarbeitung deiner E-Mail-Adresse für den genannten Zweck ein.</p>
+
+  <p><strong>Zweck:</strong> Benachrichtigung über den App-Launch und frühzeitigen Zugang zur Ondeya-App.</p>
+
+  <p><strong>Speicherdauer:</strong> Deine Daten werden gespeichert, bis du dich abmeldest oder bis der Zweck (Launch-Benachrichtigung) erfüllt ist — maximal 24 Monate nach Eintragung.</p>
+
+  <p><strong>Datenübermittlung:</strong> Die Daten werden bei Supabase Inc. (USA) gespeichert. Supabase verarbeitet Daten gemäß EU-Standardvertragsklauseln (SCCs). Weitere Informationen: <a href="https://supabase.com/privacy" target="_blank" rel="noopener">supabase.com/privacy</a>.</p>
+
+  <p><strong>Widerruf:</strong> Du kannst deine Einwilligung jederzeit widerrufen und die Löschung deiner Daten verlangen — per E-Mail an <a href="mailto:hallo@ondeya.app">hallo@ondeya.app</a>.</p>
+
+  <div class="divider"></div>
+
+  <h2>3. Hosting — GitHub Pages</h2>
+  <p>
+    Diese Website wird über GitHub Pages (GitHub Inc., USA) gehostet. Beim Abruf der Seite werden technische Verbindungsdaten (IP-Adresse, Browsertyp, Zeitpunkt des Zugriffs) serverseitig protokolliert. Diese Daten werden von GitHub verarbeitet. Weitere Informationen: <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages#data-collection" target="_blank" rel="noopener">GitHub Pages Datenschutzhinweise</a>.
+  </p>
+
+  <div class="divider"></div>
+
+  <h2>4. Externe Schriftarten — Google Fonts</h2>
+  <p>
+    Diese Website lädt Schriftarten von Google Fonts (Google Ireland Ltd., Irland). Dabei wird deine IP-Adresse an Google übermittelt. Die Nutzung erfolgt auf Basis von Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer einheitlichen Darstellung). Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Datenschutzerklärung</a>.
+  </p>
+
+  <div class="divider"></div>
+
+  <h2>5. Affiliate-Links</h2>
+  <p>
+    Ondeya arbeitet mit Affiliate-Netzwerken zusammen (u. a. CJ Affiliate, Skimlinks). Wenn du über einen Link auf ondeya.app einen Kauf tätigst, erhalten wir eine Provision. Dabei können Tracking-Cookies des jeweiligen Netzwerks gesetzt werden. Diese Verarbeitung erfolgt auf Basis deiner Einwilligung (Art. 6 Abs. 1 lit. a DSGVO) oder des berechtigten Interesses (Art. 6 Abs. 1 lit. f DSGVO).
+  </p>
+
+  <div class="divider"></div>
+
+  <h2>6. Deine Rechte</h2>
+  <p>Du hast gemäß DSGVO folgende Rechte:</p>
+  <ul>
+    <li><strong>Auskunft</strong> (Art. 15 DSGVO): Du kannst jederzeit Auskunft über die zu deiner Person gespeicherten Daten verlangen.</li>
+    <li><strong>Berichtigung</strong> (Art. 16 DSGVO): Du hast das Recht, unrichtige Daten berichtigen zu lassen.</li>
+    <li><strong>Löschung</strong> (Art. 17 DSGVO): Du kannst die Löschung deiner Daten verlangen, sofern keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</li>
+    <li><strong>Einschränkung</strong> (Art. 18 DSGVO): Du kannst die Einschränkung der Verarbeitung verlangen.</li>
+    <li><strong>Datenübertragbarkeit</strong> (Art. 20 DSGVO): Du hast das Recht, deine Daten in einem gängigen Format zu erhalten.</li>
+    <li><strong>Widerspruch</strong> (Art. 21 DSGVO): Du kannst der Verarbeitung deiner Daten widersprechen.</li>
+    <li><strong>Widerruf</strong> (Art. 7 Abs. 3 DSGVO): Du kannst eine erteilte Einwilligung jederzeit ohne Angabe von Gründen widerrufen.</li>
+  </ul>
+  <p>
+    Zur Ausübung deiner Rechte wende dich an: <a href="mailto:hallo@ondeya.app">hallo@ondeya.app</a>
+  </p>
+
+  <div class="divider"></div>
+
+  <h2>7. Beschwerderecht</h2>
+  <p>
+    Du hast das Recht, dich bei einer Datenschutz-Aufsichtsbehörde zu beschweren. Die zuständige Behörde richtet sich nach deinem Wohnsitz. Eine Liste der deutschen Aufsichtsbehörden findest du unter: <a href="https://www.bfdi.bund.de/DE/Infothek/Anschriften_Links/anschriften_links-node.html" target="_blank" rel="noopener">bfdi.bund.de</a>.
+  </p>
+
+  <div class="divider"></div>
+
+  <h2>8. Aktualität</h2>
+  <p>Stand: April 2026. Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf zu aktualisieren.</p>
+</main>
+
+<footer>
+  <div class="footer-logo">
+    <svg width="18" height="18" viewBox="0 0 40 40" fill="none">
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#8a7f72" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <path d="M5 26 Q12 8 20 20 Q28 32 35 14" stroke="#4a8a6e" stroke-width="1.4" stroke-linecap="round" fill="none" stroke-dasharray="5 5"/>
+    </svg>
+    ONDEYA
+  </div>
+  <div class="footer-links">
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="impressum.html">Impressum</a>
+  </div>
+</footer>
+
+</body>
+</html>

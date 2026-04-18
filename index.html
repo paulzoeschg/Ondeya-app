@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <style>
   :root {
@@ -533,6 +534,36 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* ── BRAND MANIFESTO ── */
+  .brand-manifesto {
+    padding: 5rem 3rem;
+    border-top: 0.5px solid rgba(232,221,208,0.08);
+  }
+  .brand-manifesto-inner {
+    max-width: 760px; margin: 0 auto; text-align: center;
+  }
+  .manifesto-label {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--forest-light); margin-bottom: 1.75rem;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .manifesto-label::before, .manifesto-label::after {
+    content: ''; flex: 1; max-width: 60px;
+    height: 0.5px; background: rgba(74,138,110,0.35);
+  }
+  .manifesto-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3.2vw, 38px);
+    font-weight: 400; line-height: 1.45;
+    color: var(--linen); letter-spacing: -0.01em;
+  }
+  .manifesto-text strong {
+    font-weight: 600; color: var(--creme); font-style: normal;
+  }
+  .manifesto-text em {
+    color: var(--sand); font-style: italic;
+  }
+
   /* Skimlinks verification */
   .skimlinks-notice {
     position: fixed; bottom: 1rem; right: 1rem;
@@ -544,11 +575,26 @@
 
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
     .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 3rem; }
     .hero-left { padding-right: 0; }
-    .mechanics, .categories { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero-right { order: -1; }
+    .waitlist-form { flex-wrap: wrap; }
+    .waitlist-form .waitlist-btn { width: 100%; justify-content: center; }
+    .mechanics, .categories, .brand-core, .focus-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .mechanics-grid, .cat-grid { grid-template-columns: 1fr; }
+    .brand-manifesto { padding: 3.5rem 1.5rem; }
+    .waitlist-bottom { padding: 4rem 1.5rem; }
+    .wl-form { flex-direction: column; align-items: stretch; }
+    .wl-form .waitlist-btn { width: 100%; }
     footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .phone-frame { width: 230px; }
+  }
+
+  @media (max-width: 400px) {
+    .phone-frame { width: 200px; }
+    .demo-controls { gap: 7px; }
+    .demo-btn { width: 36px; height: 36px; font-size: 13px; }
   }
 </style>
 </head>
@@ -614,8 +660,22 @@
         <div class="demo-btn buy-btn" title="Sofort kaufen" onclick="triggerSwipe('buy')">↑</div>
         <div class="demo-btn like-btn" title="Watchlist" onclick="triggerSwipe('like')">→</div>
       </div>
-      <p class="demo-hint">Pfeile klicken oder Karte swipen</p>
+      <p class="demo-hint">Pfeile klicken oder Karte direkt entscheiden</p>
     </div>
+  </div>
+</section>
+
+<!-- BRAND MANIFESTO -->
+<section class="brand-manifesto">
+  <div class="brand-manifesto-inner">
+    <div class="manifesto-label">Ondeya — der Gedanke dahinter</div>
+    <p class="manifesto-text">
+      Reichtum sind keine Luxusartikel. <strong>Reichtum bedeutet Zeit und Geld zu haben</strong>,
+      einen persönlichen Lifestyle zu finanzieren.
+      Ondeya soll einen Teil hierzu beitragen.
+      Ob Mode oder Living —
+      <em>Ondeya gibt dir plattformübergreifend die Angebote, die perfekt zu deinem Style passen.</em>
+    </p>
   </div>
 </section>
 
@@ -846,10 +906,10 @@
     ONDEYA
   </div>
   <div class="footer-links">
-    <a href="#">Datenschutz</a>
-    <a href="#">Impressum</a>
-    <a href="#">Instagram</a>
-    <a href="#">TikTok</a>
+    <a href="datenschutz.html">Datenschutz</a>
+    <a href="impressum.html">Impressum</a>
+    <a href="https://instagram.com/_ondeya" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://tiktok.com/@_ondeya" target="_blank" rel="noopener">TikTok</a>
   </div>
 </footer>
 
@@ -1086,27 +1146,66 @@ function onEnd() {
   }
 }
 
+// ── SUPABASE ──
+const SUPABASE_URL = 'https://ghgjltjemkhclvamhtnj.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_4rIdA2cVBudaTdeLOr8CQA_T1z7VVxl';
+const supabase = window.supabase
+  ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+  : null;
+
 // ── WAITLIST SIGNUP ──
 let signupCount = 247;
-function handleSignup(inputId, btn) {
+
+async function handleSignup(inputId, btn) {
   const input = document.getElementById(inputId);
   const email = input.value.trim();
+
   if (!email || !email.includes('@')) {
     input.style.borderColor = 'rgba(154,95,95,0.6)';
     setTimeout(() => input.style.borderColor = '', 1500);
     return;
   }
-  signupCount++;
-  document.getElementById('signupCount').textContent = signupCount;
-  input.value = '';
-  btn.textContent = 'Du bist dabei ✓';
-  btn.style.background = 'var(--forest-light)';
-  btn.style.color = '#fff';
-  setTimeout(() => {
-    btn.textContent = btn.textContent.includes('→') ? 'Früh dabei sein →' : 'Eintragen →';
-    btn.style.background = '';
-    btn.style.color = '';
-  }, 3000);
+
+  const originalText = btn.textContent;
+  btn.textContent = '…';
+  btn.disabled = true;
+
+  let success = false;
+
+  if (supabase) {
+    const { error } = await supabase.from('waitlist').insert({
+      email,
+      is_founding_member: true
+    });
+    if (!error || error.code === '23505') {
+      // 23505 = unique_violation (already signed up — treat as success)
+      success = true;
+    } else {
+      console.error('Supabase error:', error);
+    }
+  } else {
+    // Supabase not loaded — graceful fallback
+    success = true;
+  }
+
+  btn.disabled = false;
+
+  if (success) {
+    signupCount++;
+    document.getElementById('signupCount').textContent = signupCount;
+    input.value = '';
+    btn.textContent = 'Du bist dabei ✓';
+    btn.style.background = 'var(--forest-light)';
+    btn.style.color = '#fff';
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 3000);
+  } else {
+    btn.textContent = 'Fehler — nochmal versuchen';
+    setTimeout(() => { btn.textContent = originalText; }, 3000);
+  }
 }
 
 // Init
